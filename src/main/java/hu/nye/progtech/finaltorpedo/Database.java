@@ -1,9 +1,12 @@
 package hu.nye.progtech.finaltorpedo;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -24,9 +27,11 @@ public class Database {
 
             ResultSet resultSet = statement.executeQuery("select * from leaderboard \n order by Wins DESC");
 
+            System.out.println("Leaderboard:");
             while (resultSet.next()) {
-                System.out.println(resultSet.getString("PlayerName") + " " + resultSet.getString("Wins"));
+                System.out.println("Name:" + resultSet.getString("PlayerName") + " Wins:" + resultSet.getString("Wins"));
             }
+            System.out.println("\n");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,7 +47,8 @@ public class Database {
     public static void leaderboardAdd(String playerName) {
         try {
 
-            int i = 0;
+            int id = 0;
+            int newPlayer = 1;
 
             Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/torpedo_leaderboard", "root", "");
 
@@ -53,13 +59,17 @@ public class Database {
             while (resultSet.next()) {
                 String existingName = resultSet.getString("PlayerName");
                 if (Objects.equals(playerName, existingName)) {
-                    System.out.println("Player already exists!");
                     statement.execute("update leaderboard \n set Wins = Wins + 1 \n where PlayerName = '" + playerName + "'");
+                    newPlayer = 0;
+                    System.out.println("Data successfully saved!");
                     break;
                 }
-                i++;
+                id++;
             }
-            statement.execute("insert into leaderboard (id,PlayerName, Wins) \n values (" + i + ",'" + playerName + "',1)");
+            if (newPlayer == 1) {
+                statement.execute("insert into leaderboard (id,PlayerName, Wins) \n values (" + id + ",'" + playerName + "',1)");
+                System.out.println("Data successfully saved!");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

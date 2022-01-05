@@ -81,10 +81,13 @@ public class Main {
                     mainMenu = 0;
                     break;
                 }
-                default: {
+                case "DEBUG": {
                     System.out.println("Enter your name: ");
                     String playerName = in.nextLine();
                     leaderboardAdd(playerName);
+                    break;
+                }
+                default: {
                     System.out.println("No Options were selected.");
                     break;
                 }
