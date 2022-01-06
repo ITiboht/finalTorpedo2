@@ -2,10 +2,15 @@ package hu.nye.progtech.finaltorpedo;
 
 import java.util.Scanner;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+
 /**
  * Main gameplay class.
  */
-public final class GameState {
+@Configuration
+public class GameState {
 
     /**
      * Max map size.
@@ -21,6 +26,7 @@ public final class GameState {
      *
      * @param p Player value
      */
+    @Bean
     public static void setup(final Player p) {
         p.getPlayerMap().printShips();
         System.out.println();
@@ -75,6 +81,7 @@ public final class GameState {
      *
      * @param p Player value
      */
+    @Bean
     public static void setupAI(final Player p) {
         System.out.println();
         int counter = 1;
@@ -109,6 +116,7 @@ public final class GameState {
      * @param opp AI value
      * @return Returns hit or miss
      */
+    @Bean
     public static String askForGuess(final Player p, final Player opp) {
         System.out.println("Guesses: ");
         p.getEnemyMap().printStatus();
@@ -155,6 +163,7 @@ public final class GameState {
      * @param comp AI value
      * @param user Player value
      */
+    @Bean
     public static void compMakeGuess(final Player comp, final Player user) {
         Randomizer rand = new Randomizer();
         int row = Randomizer.nextInt(0, 9);
@@ -194,6 +203,7 @@ public final class GameState {
      * @param count  Length of current ship
      * @return Returns ture or false based on if the ship can be placed
      */
+    @Bean
     private static boolean hasErrors(final int row, final int column,
                                      final int facing,
                                      final Player p, final int count) {
@@ -243,6 +253,7 @@ public final class GameState {
      * @param count  Length of current ship
      * @return Returns ture or false based on if the ship can be placed
      */
+    @Bean
     private static boolean hasErrorsComp(final int row, final int column,
                                          final int facing,
                                          final Player p, final int count) {

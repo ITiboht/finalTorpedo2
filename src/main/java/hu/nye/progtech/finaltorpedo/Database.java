@@ -29,6 +29,7 @@ public class Database {
             while (resultSet.next()) {
                 System.out.println("Name:" + resultSet.getString("PlayerName") + " Wins:" + resultSet.getString("Wins"));
             }
+            resultSet.close();
             System.out.println("\n");
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,7 +69,7 @@ public class Database {
                 statement.execute("insert into leaderboard (id,PlayerName, Wins) \n values (" + id + ",'" + playerName + "',1)");
                 System.out.println("Data successfully saved!");
             }
-
+            resultSet.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
